@@ -167,6 +167,11 @@ def get_available_times_for_date(date,
     # get the raw bytestring json response with date-time data
     response = requests.get(request_url)
 
+    # handle the case where no images exist for a given date
+    if response.status_code == 404:
+        print(f"No images available for {date}")
+        return None
+
     # convert the bytestring response to a dict we can use
     date_times_json = json.loads(response.content)
 
