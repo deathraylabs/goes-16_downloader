@@ -4,8 +4,13 @@
 to create.
 
 Keyword Args:
-    sys.argv[1] (int): formatted date 'YYYYMMDD'
+    sys.argv[1] (int): formatted date of interest 'YYYYMMDD'
 
+Notes:
+    When run from command line or main, this script will generate a URL and
+    copy it to the system clipboard. The URL takes the user to the
+    rammb-slider site and displays a time-lapse satellite view of the earth
+    over the course of the day.
 """
 
 import sys
@@ -156,6 +161,8 @@ def get_available_times_for_date(date,
                        - "conus"    : view of continental US
 
     Returns:
+        None: if no images are available for that date
+
         available_times (dict): dict containing timestamps of available photos
             keys (str): 'HH' formatted hour
             values (str): list of 'YYYYMMDDHHmmss' equally spaced timestamps
@@ -261,6 +268,8 @@ if __name__ == '__main__':
     sunrise = riseandset[0]
     sunrise_date = sunrise[:-6]
     # print(f'the sunrise date is {sunrise_date}')
+
+    #todo: add error handler for no data returned
 
     # these are the times that sat photos are available
     times_available = get_available_times_for_date(sunrise_date)
